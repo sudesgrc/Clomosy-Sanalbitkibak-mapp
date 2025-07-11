@@ -16,8 +16,21 @@ Amaç, kullanıcıların bitki türleri arasında geçiş yaparak sanal bitkiler
 - 🤖 Yapay zeka destekli **sohbet sistemi**
 - 🧠 Kullanıcı etkileşimli bakım mekanizması
 - 💬 Estetik ve sade **kullanıcı arayüzü**
+- 
+## 📸 Uygulama Görselleri
 
+### 🏠 Ana Sayfa
+![Ana Sayfa](bitkim.jpeg)
 
+### 💧 Sulama Ekranı
+![Sulama](sulama.jpeg)
+
+### 🌼 Bakım
+![Böcekler](böcekler.jpeg)
+![İlaçlama](ilaçlama.jpeg)
+
+### 🤖 Bitki Asistanı
+![Bitki Asistanı](ai.jpeg)
 
 🛠️ Kullanılan Teknolojiler
 
