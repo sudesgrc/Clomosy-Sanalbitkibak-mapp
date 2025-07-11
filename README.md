@@ -34,7 +34,7 @@ Amaç, kullanıcıların bitki türleri arasında geçiş yaparak sanal bitkiler
 
 **Sude Sığırcı**  
 📚 Konya Teknik Üniversitesi – Yazılım Mühendisliği  
-🔗 [LinkedIn Profilim](www.linkedin.com/in/sude-sığırcı-a5a177293)
+🔗 [LinkedIn Profilim](https://www.linkedin.com/in/sude-s%C4%B1%C4%9F%C4%B1rc%C4%B1-a5a177293/)
 📬 sudesgrc4646@gmail.com
 
 ---
