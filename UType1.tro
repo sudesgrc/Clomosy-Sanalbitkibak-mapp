@@ -1,0 +1,52 @@
+var
+  type1form:TclStyleForm;
+  bitkiImg:TClProImage;
+  bitkititle:TCLProLabel;
+  zinniapanel:TclProPanel;
+  lblZinniaInfo:TCLProLabel;
+
+{
+  type1form = TclStyleForm.Create(Self);
+  type1form.SetFormBGImage('https://i.imgur.com/9PV6kkn.jpeg');
+  
+     bitkititle = type1form.AddNewProLabel(type1form, 'bitkititle', 'ZINNIA');
+     bitkititle.Align = alTop;
+     bitkititle.Margins.Top = 20;
+     bitkititle.Margins.Left = 20;
+     bitkititle.Margins.Right = 20;
+     bitkititle.clProSettings.FontColor = clAlphaColor.clHexToColor('#b0f5f7');
+     bitkititle.clProSettings.FontSize = 24;
+     bitkititle.clProSettings.AutoSize = True;
+     bitkititle.clProSettings.FontVertAlign = palcenter;
+     bitkititle.clProSettings.FontHorzAlign = palCenter;
+     bitkititle.clProSettings.TextSettings.Font.Style = [fsbold, fsUnderline];
+     bitkititle.clProSettings.IsFill = True; 
+     bitkititle.clProSettings.IsRound = True;
+     bitkititle.Height = 50;
+     bitkititle.Width = 300;
+     bitkititle.SetclProSettings(bitkititle.clProSettings);
+     
+     
+  zinniapanel = type1form.AddNewProPanel(type1form, 'zinniapanel');
+  zinniapanel.Height = 250;
+  zinniapanel.Width = 300;
+  zinniapanel.Margins.Top = 30;
+  zinniapanel.Margins.Bottom=30;
+  zinniapanel.Margins.Left = 20;
+  zinniapanel.clProSettings.BackgroundColor =clAlphaColor.clHexToColor('#ffc0cb');
+  zinniapanel.SetclProSettings(zinniapanel.clProSettings);
+
+ 
+  lblZinniaInfo = type1form.AddNewProLabel(zinniapanel, 'lblZinniaInfo', 
+    ' Zinnia çiçeği renkli ve canlı görüntüsüyle bilinir.' +
+    ' Güneşi çok sever, kuraklığa dayanıklıdır.' +
+    ' Yaz boyunca çiçek açar, arıları ve kelebekleri çeker.'+
+    ' Kırmızı, pembe, sarı, turuncu gibi birçok renkte çiçek açar.'+
+    ' Türüne göre 20 cmden 1 metreye kadar uzayabilir.');
+  lblZinniaInfo.Align = alClient;
+  lblZinniaInfo.clProSettings.FontSize = 16;
+  lblZinniaInfo.clProSettings.FontColor = clAlphaColor.clHexToColor('#000000'); 
+  lblZinniaInfo.clProSettings.WordWrap = True;
+  lblZinniaInfo.SetclProSettings(lblZinniaInfo.clProSettings);
+  type1form.Run;
+}

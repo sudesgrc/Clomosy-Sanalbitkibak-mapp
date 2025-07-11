@@ -1,0 +1,105 @@
+var
+  RegisterForm: TclStyleForm;
+  lblRegisterTitle: TCLProLabel;
+  usernameedit, userpasswordedit,emailedit: TclProEdit;
+  RegisterButton: TClProButton;
+  Unitplant:TclUnit;
+  
+void SaveandBack;
+{
+  try
+    Clomosy.DBSQLiteQuery.SQL.Text =
+      'INSERT INTO users(username, userpassword) VALUES(' +
+      QuotedStr(usernameedit.Text) + ',' +
+      QuotedStr(userpasswordedit.Text) + ')';
+      
+    Clomosy.DBSQLiteQuery.OpenOrExecute;
+    ShowMessage('Kayıt Başarılı.');
+    Unitplant.UnitName='UPlant';
+    Unitplant.CallerForm=RegisterForm;
+    Unitplant.Run;
+  except
+    ShowMessage('Kayıt sırasında hata oluştu: ' + LastExceptionMessage);
+}
+
+}
+
+{
+
+
+  Unitplant=TclUnit.Create;
+  RegisterForm = TclStyleForm.Create(Self);
+  RegisterForm.SetFormBGImage('https://i.pinimg.com/736x/e9/39/c4/e939c40095284ec5e6c511b22a543c2c.jpg');;
+
+  lblRegisterTitle = RegisterForm.AddNewProLabel(RegisterForm, 'lblRegisterTitle', 'SANAL BAHÇEMİN BİR ÜYESİ OL !');
+  lblRegisterTitle.Align = alTop;
+  lblRegisterTitle.clProSettings.TextSettings.Font.Size = 35; 
+  lblRegisterTitle.clProSettings.TextSettings.Font.Style = [fsBold];
+  lblRegisterTitle.clProSettings.TextSettings.FontColor = clAlphaColor.clHexToColor('#ffffff');
+  lblRegisterTitle.clProSettings.FontColor = clAlphaColor.clHexToColor('#ffffff');
+  lblRegisterTitle.clProSettings.FontVertAlign = palcenter;
+  lblRegisterTitle.clProSettings.FontHorzAlign = palCenter;
+  lblRegisterTitle.Margins.Right = 20;
+  lblRegisterTitle.Margins.Left = 20;
+  lblRegisterTitle.Margins.Top = 30;
+  lblRegisterTitle.Height = 50;
+  lblRegisterTitle.Width = 300;
+  lblRegisterTitle.SetclProSettings(lblRegisterTitle.clProSettings);
+  
+  emailedit = RegisterForm.AddNewProEdit(RegisterForm, 'emailedit', 'Email ');
+  emailedit.Align = alTop;
+  emailedit.clProSettings.BackGroundColor = clAlphaColor.clHexToColor('#ffffff');
+  emailedit.clProSettings.RoundHeight = 8;
+  emailedit.clProSettings.RoundWidth = 8;
+  emailedit.Margins.Top = 40;
+  emailedit.Margins.Left = 30;
+  emailedit.Margins.Right = 30;
+  emailedit.Height = 45;
+  emailedit.Width = 300;
+  emailedit.SetclProSettings(emailedit.clProSettings);
+
+  usernameedit = RegisterForm.AddNewProEdit(RegisterForm, 'usernameedit', 'Kullanıcı Adı ');
+  usernameedit.Align = alTop;
+  usernameedit.clProSettings.BackGroundColor = clAlphaColor.clHexToColor('#ffffff');
+  usernameedit.clProSettings.RoundHeight = 8;
+  usernameedit.clProSettings.RoundWidth = 8;
+  usernameedit.Margins.Top = 40;
+  usernameedit.Margins.Left = 30;
+  usernameedit.Margins.Right = 30;
+  usernameedit.Height = 45;
+  usernameedit.Width = 300;
+  usernameedit.SetclProSettings(usernameedit.clProSettings);
+
+  userpasswordedit = RegisterForm.AddNewProEdit(RegisterForm, 'userpasswordedit', 'Şifre ');
+  userpasswordedit.Align = alTop;
+  userpasswordedit.clProSettings.BackGroundColor = clAlphaColor.clHexToColor('#ffffff');
+  userpasswordedit.clProSettings.RoundHeight = 8;
+  userpasswordedit.clProSettings.RoundWidth = 8;
+  userpasswordedit.Password = True;
+  userpasswordedit.Margins.Top = 30;
+  userpasswordedit.Margins.Left = 30;
+  userpasswordedit.Margins.Right = 30;
+  userpasswordedit.Height = 45;
+  userpasswordedit.Width = 300;
+  userpasswordedit.SetclProSettings(userpasswordedit.clProSettings);
+
+  RegisterButton = RegisterForm.AddNewProButton(RegisterForm, 'RegisterButton', 'KAYIT OL');
+  RegisterButton.Align = alTop;
+  RegisterButton.clProSettings.BackGroundColor = clAlphaColor.clHexToColor('#f7eeed');
+  RegisterButton.clProSettings.TextSettings.FontColor = clAlphaColor.clHexToColor('#457a00');
+  RegisterButton.clProSettings.FontSize = 20;
+  RegisterButton.clProSettings.RoundHeight = 8;
+  RegisterButton.clProSettings.RoundWidth = 8;
+  RegisterButton.Margins.Top = 80;
+  RegisterButton.Height = 30;
+  RegisterButton.Width = 180;
+  RegisterButton.Margins.Left=60;
+  RegisterButton.Margins.Right=60;
+  RegisterButton.clProSettings.IsFill = True;
+  RegisterButton.clProSettings.FontHorzAlign = palCenter;
+  RegisterButton.clProSettings.FontVertAlign = palCenter;
+  RegisterButton.SetclProSettings(RegisterButton.clProSettings);
+
+  RegisterForm.AddNewEvent(RegisterButton, tbeOnClick, 'SaveandBack');
+  RegisterForm.Run;
+}

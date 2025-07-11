@@ -1,0 +1,121 @@
+var
+SpeciesForm:TclStyleForm;
+type1btn,type2btn,type3btn,type4btn:TClProButton;
+Unit1,Unit2,Unit3,Unit4:TclUnit;
+void gototype1;
+{
+  Unit1.UnitName='UType1';
+  Unit1.CallerForm=SpeciesForm;
+  Unit1.Run;
+}
+
+void gototype2;
+{
+  Unit2.UnitName='UType2';
+  Unit2.CallerForm=SpeciesForm;
+  Unit2.Run;
+}
+
+void gototype3;
+{
+  Unit3.UnitName='UType3';
+  Unit3.CallerForm=SpeciesForm;
+  Unit3.Run;
+}
+
+void gototype4;
+{
+  Unit4.UnitName='UType4';
+  Unit4.CallerForm=SpeciesForm;
+  Unit4.Run;
+}
+
+
+{
+  SpeciesForm=TclStyleForm.Create(Self);
+  SpeciesForm.SetFormBGImage('https://i.imgur.com/vUDoPzW.jpeg');
+  Unit1=TclUnit.Create;
+  Unit2=TclUnit.Create;
+  Unit3=TclUnit.Create;
+  Unit4=TclUnit.Create;
+  
+  
+  type1btn=SpeciesForm.AddNewProButton(SpeciesForm, 'type1btn', 'TÜR 1');
+  type1btn.Align=alTop;
+  type1btn.clProSettings.BackGroundColor = clAlphaColor.clHexToColor('#2e6417');
+  type1btn.clProSettings.TextSettings.FontColor = clAlphaColor.clHexToColor('#bef28a');
+  type1btn.clProSettings.FontSize = 20;
+  type1btn.clProSettings.TextSettings.Font.Style=[fsBold];
+  type1btn.clProSettings.RoundHeight = 8;
+  type1btn.clProSettings.RoundWidth = 8;
+  type1btn.Margins.Top = 120;
+  type1btn.Height = 50;
+  type1btn.Width = 150;
+  type1btn.Margins.Left=60;
+  type1btn.Margins.Right=60;
+  type1btn.clProSettings.IsFill = True;
+  type1btn.clProSettings.FontHorzAlign = palCenter;
+  type1btn.clProSettings.FontVertAlign = palCenter;
+  type1btn.SetclProSettings(type1btn.clProSettings);
+  
+  
+  type2btn=SpeciesForm.AddNewProButton(SpeciesForm, 'type2btn', 'TÜR 2');
+  type2btn.Align=alTop;
+  type2btn.clProSettings.BackGroundColor = clAlphaColor.clHexToColor('#2e6417');
+  type2btn.clProSettings.TextSettings.FontColor = clAlphaColor.clHexToColor('#bef28a');
+  type2btn.clProSettings.FontSize = 20;
+  type2btn.clProSettings.TextSettings.Font.Style=[fsBold];
+  type2btn.clProSettings.RoundHeight = 8;
+  type2btn.clProSettings.RoundWidth = 8;
+  type2btn.Margins.Top = 80;
+  type2btn.Height = 50;
+  type2btn.Width = 150;
+  type2btn.Margins.Left=60;
+  type2btn.Margins.Right=60;
+  type2btn.clProSettings.IsFill = True;
+  type2btn.clProSettings.FontHorzAlign = palCenter;
+  type2btn.clProSettings.FontVertAlign = palCenter;
+  type2btn.SetclProSettings(type2btn.clProSettings);
+  
+  type3btn=SpeciesForm.AddNewProButton(SpeciesForm, 'type3btn', 'TÜR 3');
+  type3btn.Align=alTop;
+  type3btn.clProSettings.BackGroundColor = clAlphaColor.clHexToColor('#2e6417');
+  type3btn.clProSettings.TextSettings.FontColor = clAlphaColor.clHexToColor('#bef28a');
+  type3btn.clProSettings.FontSize = 20;
+  type3btn.clProSettings.TextSettings.Font.Style=[fsBold];
+  type3btn.clProSettings.RoundHeight = 8;
+  type3btn.clProSettings.RoundWidth = 8;
+  type3btn.Margins.Top = 80;
+  type3btn.Height = 50;
+  type3btn.Width = 150;
+  type3btn.Margins.Left=60;
+  type3btn.Margins.Right=60;
+  type3btn.clProSettings.IsFill = True;
+  type3btn.clProSettings.FontHorzAlign = palCenter;
+  type3btn.clProSettings.FontVertAlign = palCenter;
+  type3btn.SetclProSettings(type3btn.clProSettings);
+  
+  type4btn=SpeciesForm.AddNewProButton(SpeciesForm, 'type4btn', 'TÜR 4');
+  type4btn.Align=alTop;
+  type4btn.clProSettings.BackGroundColor = clAlphaColor.clHexToColor('#2e6417');
+  type4btn.clProSettings.TextSettings.FontColor = clAlphaColor.clHexToColor('#bef28a');
+  type4btn.clProSettings.FontSize = 20;
+  type4btn.clProSettings.TextSettings.Font.Style=[fsBold];
+  type4btn.clProSettings.RoundHeight = 8;
+  type4btn.clProSettings.RoundWidth = 8;
+  type4btn.Margins.Top = 80;
+  type4btn.Height = 50;
+  type4btn.Width = 150;
+  type4btn.Margins.Left=60;
+  type4btn.Margins.Right=60;
+  type4btn.clProSettings.IsFill = True;
+  type4btn.clProSettings.FontHorzAlign = palCenter;
+  type4btn.clProSettings.FontVertAlign = palCenter;
+  type4btn.SetclProSettings(type4btn.clProSettings);
+  
+  SpeciesForm.AddNewEvent(type1btn,tbeOnClick,'gototype1');
+  SpeciesForm.AddNewEvent(type2btn,tbeOnClick,'gototype2');
+  SpeciesForm.AddNewEvent(type3btn,tbeOnClick,'gototype3');
+  SpeciesForm.AddNewEvent(type4btn,tbeOnClick,'gototype4');
+  SpeciesForm.Run;
+}

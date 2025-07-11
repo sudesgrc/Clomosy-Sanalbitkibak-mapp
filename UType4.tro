@@ -1,0 +1,53 @@
+var
+  type4form:TclStyleForm;
+  bitkiImg:TClProImage;
+  bitkititle:TCLProLabel;
+  rosepanel:TclProPanel;
+  lblrose:TCLProLabel;
+
+{
+  type4form = TclStyleForm.Create(Self);
+  type4form.SetFormBGImage('https://i.imgur.com/RrwFuMY.png');
+  
+     bitkititle = type4form.AddNewProLabel(type4form, 'bitkititle', 'ROSE');
+     bitkititle.Align = alTop;
+     bitkititle.Margins.Top = 20;
+     bitkititle.Margins.Left = 20;
+     bitkititle.Margins.Right = 20;
+     bitkititle.clProSettings.FontColor = clAlphaColor.clHexToColor('#b0f5f7');
+     bitkititle.clProSettings.FontSize = 24;
+     bitkititle.clProSettings.AutoSize = True;
+     bitkititle.clProSettings.FontVertAlign = palcenter;
+     bitkititle.clProSettings.FontHorzAlign = palCenter;
+     bitkititle.clProSettings.TextSettings.Font.Style = [fsbold, fsUnderline];
+     bitkititle.clProSettings.IsFill = True; 
+     bitkititle.clProSettings.IsRound = True;
+     bitkititle.Height = 50;
+     bitkititle.Width = 300;
+     bitkititle.SetclProSettings(bitkititle.clProSettings);
+     
+     
+  rosepanel = type4form.AddNewProPanel(type4form, 'rosepanel');
+  rosepanel.Height = 250;
+  rosepanel.Width = 300;
+  rosepanel.Margins.Top = 30;
+  rosepanel.Margins.Bottom=30;
+  rosepanel.Margins.Left = 20;
+  rosepanel.clProSettings.BackgroundColor =clAlphaColor.clHexToColor('#f5ef42');
+  rosepanel.SetclProSettings(rosepanel.clProSettings);
+
+ 
+  lblrose = type4form.AddNewProLabel(rosepanel, 'lblrose', 
+    ' Güller bol güneş ışığıyla daha güzel açar.' +
+    ' Gübreli ve iyi drene edilen toprakları tercih eder.'+
+    ' Sağlıklı gelişmesi için budanmalıdır..'+
+    ' Parfüm ve kremlerde sıkça yer alır.'+
+    ' Cilt bakımında ve aromaterapide kullanılır.'+
+    ' Duvar veya çitlere sarılan türleri vardır.');
+  lblrose.Align = alClient;
+  lblrose.clProSettings.FontSize = 16;
+  lblrose.clProSettings.FontColor = clAlphaColor.clHexToColor('#000000'); 
+  lblrose.clProSettings.WordWrap = True;
+  lblrose.SetclProSettings(lblrose.clProSettings);
+  type4form.Run;
+}

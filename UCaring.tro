@@ -1,0 +1,194 @@
+var
+  caringform: TclStyleForm;
+  imgBocek, imgBocek2,imgSprey: TClProImage;
+  hareketZamanlayici, hareketZamanlayici2,hareketZamanlayici3, geriTimer,spreyKapatTimer: TClTimer;
+  ilaclaBtn: TClProButton;
+  posX, posY: Integer;
+  spreysound:TclMediaPlayer;
+  lblSayac: TClProLabel;
+  geriSayimTimer: TClTimer;
+  geriSayim: Integer;
+
+
+void hareketEt;
+{
+  posX = posX + 5;
+  imgBocek.Position.X = posX;
+  if (posX > caringform.clWidth) {
+    posX = -imgBocek.Width;
+  }
+}
+
+void hareketEt2;
+{
+  posY = posY + 5;
+  imgBocek2.Position.Y = posY;
+  if (posY > caringform.clHeight) {
+    posY = -imgBocek2.Height;
+  }
+}
+
+
+void ilaclaTiklandi;
+{
+
+  spreysound.Play;
+  imgSprey.Visible = True;
+  imgBocek.Visible = False;
+  imgBocek2.Visible = False;
+  hareketZamanlayici.Enabled = False;
+  hareketZamanlayici2.Enabled = False;
+  geriTimer.Enabled = True;
+  spreyKapatTimer.Enabled = True;
+    geriSayim = 10;
+  lblSayac.Text = IntToStr(geriSayim);
+  lblSayac.Visible = True;
+  geriSayimTimer.Enabled = True;
+
+
+  ShowMessage('İlaçlama yapıldı, böcekler kaçtı!');
+}
+
+void ilaclamahareket;
+{
+  posX = posX + 5;
+  imgSprey.Position.X = posX;
+  if (posX > caringform.clWidth) {
+    posX = -imgSprey.Width;
+  }
+}
+
+void geriGeldi;
+{
+
+  imgBocek.Visible = True;
+  imgBocek2.Visible = True;
+  
+
+  hareketZamanlayici.Enabled = True;
+  hareketZamanlayici2.Enabled = True;
+
+  geriTimer.Enabled = False;
+
+  ShowMessage('Böcekler geri döndü 😈');
+}
+
+void spreyGizle;
+{
+  imgSprey.Visible = False;
+  spreyKapatTimer.Enabled = False;
+}
+
+void geriSayimGuncelle;
+{
+  geriSayim = geriSayim - 1;
+  lblSayac.Text = IntToStr(geriSayim);
+
+  if (geriSayim <= 0) {
+    lblSayac.Visible = False;
+    geriSayimTimer.Enabled = False;
+  }
+}
+
+
+
+{
+  caringform = TclStyleForm.Create(Self);
+  caringform.SetFormBGImage('https://i.imgur.com/noikEXy.jpeg');
+
+  caringform.AddAssetFromUrl('https://raw.githubusercontent.com/sudesgrc/assets/main/spreysound.wav');
+  
+  imgBocek = caringform.AddNewProImage(caringform, 'imgBocek');
+  imgBocek.clProSettings.PictureSource = 'https://i.imgur.com/Vn3RL47.png'; 
+  imgBocek.Align = alNone; 
+  imgBocek.Width = 80;
+  imgBocek.Height = 80;
+  imgBocek.Margins.Left = 20;
+  imgBocek.Margins.Top = 150;
+  imgBocek.Visible = True;
+  posX = imgBocek.Margins.Left;
+  imgBocek.SetclProSettings(imgBocek.clProSettings);
+
+  imgBocek2 = caringform.AddNewProImage(caringform, 'imgBocek2');
+  imgBocek2.clProSettings.PictureSource = 'https://i.imgur.com/LuU0HJG.png'; 
+  imgBocek2.Align = alNone; 
+  imgBocek2.Width = 80;
+  imgBocek2.Height = 80;
+  imgBocek2.Margins.Left = 100;
+  imgBocek2.Margins.Top = 200;
+  imgBocek2.Visible = True;
+  posY = imgBocek2.Margins.Top;
+  imgBocek2.SetclProSettings(imgBocek2.clProSettings);
+  
+  imgSprey = caringform.AddNewProImage(caringform, 'imgSprey');
+  imgSprey.clProSettings.PictureSource = 'https://i.imgur.com/4RUCKtA.png';
+  imgSprey.Width = 300;
+  imgSprey.Height = 300;
+  imgSprey.Align = alNone;
+  imgSprey.Margins.Top=150;
+  imgSprey.Position.X = 300;
+  imgSprey.Position.Y = 100;
+  imgSprey.Visible = False;
+  imgSprey.SetClProSettings(imgSprey.clProSettings);
+
+  
+  hareketZamanlayici = caringform.AddNewTimer(caringform, 'hareketZamanlayici', 100);
+  caringform.AddNewEvent(hareketZamanlayici, tbeOnTimer, 'hareketEt');
+  hareketZamanlayici.Enabled = True;
+
+  hareketZamanlayici2 = caringform.AddNewTimer(caringform, 'hareketZamanlayici2', 100);
+  caringform.AddNewEvent(hareketZamanlayici2, tbeOnTimer, 'hareketEt2');
+  hareketZamanlayici2.Enabled = True;
+
+  hareketZamanlayici3=caringform.AddNewTimer(caringform,'hareketZamanlayici3',100);
+  caringform.AddNewEvent(hareketZamanlayici3,tbeOnTimer,'ilaclamahareket');
+  hareketZamanlayici3.Enabled=True;
+  
+  geriTimer = caringform.AddNewTimer(caringform, 'geriTimer', 10000); 
+  caringform.AddNewEvent(geriTimer, tbeOnTimer, 'geriGeldi');
+  geriTimer.Enabled = False; 
+  
+  
+  
+  spreyKapatTimer = caringform.AddNewTimer(caringform, 'spreyKapatTimer', 5000);
+  caringform.AddNewEvent(spreyKapatTimer, tbeOnTimer, 'spreyGizle');
+  spreyKapatTimer.Enabled = False;
+
+  ilaclaBtn = caringform.AddNewProButton(caringform, 'ilaclaBtn', 'İlaçla');
+  ilaclaBtn.clProSettings.BackgroundColor=clAlphaColor.clHexToColor('#2e6417');
+  ilaclaBtn.clProSettings.FontSize = 18;
+  ilaclaBtn.clProSettings.RoundHeight = 20;
+  ilaclaBtn.clProSettings.RoundWidth = 20;
+  ilaclaBtn.Width = 30;
+  ilaclaBtn.Height = 40;
+  ilaclaBtn.Align = alBottom;
+  ilaclaBtn.Margins.Bottom=30;
+  ilaclaBtn.Position.X = 20;
+  ilaclaBtn.Position.Y = 20;
+  ilaclaBtn.SetclProSettings(ilaclaBtn.clProSettings);
+  
+  lblSayac = caringform.AddNewProLabel(caringform, 'lblSayac', '');
+  lblSayac.Align = alTop;
+  lblSayac.Height = 50;
+  lblSayac.Width = 100;
+  lblSayac.Margins.Top = 20;
+  lblSayac.clProSettings.FontSize = 30;
+  lblSayac.clProSettings.TextSettings.FontColor = clAlphaColor.clHexToColor('#ffffff');
+  lblSayac.clProSettings.FontHorzAlign = palCenter;
+  lblSayac.clProSettings.FontVertAlign = palCenter;
+  lblSayac.Visible = False;
+  lblSayac.SetclProSettings(lblSayac.clProSettings);
+  
+  geriSayimTimer = caringform.AddNewTimer(caringform, 'geriSayimTimer', 1000); // 1 saniye
+  caringform.AddNewEvent(geriSayimTimer, tbeOnTimer, 'geriSayimGuncelle');
+  geriSayimTimer.Enabled = False;
+
+
+  
+  spreysound = TclMediaPlayer.Create(caringform);
+  spreysound.FileName = clPathCombine('spreysound.wav', Clomosy.AppFilesPath);
+  spreysound.Volume =1;
+  caringform.AddNewEvent(ilaclaBtn, tbeOnClick, 'ilaclaTiklandi');
+
+  caringform.Run;
+}

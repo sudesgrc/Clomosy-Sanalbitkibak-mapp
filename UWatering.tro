@@ -1,0 +1,339 @@
+var
+wateringform:TclStyleForm;
+waterbtn:TClProButton;
+lblwateringtitle:TClProLabel;
+waterimg,plantimg,dropimg:TClProImage;
+actiontimer,downtimer:TCLTimer;
+direction:Integer;
+canwater:Boolean;
+watersound:TclMediaPlayer;
+bouncecount:Integer;
+wateringcount:Integer;
+lblSayac: TClProLabel;
+sulamaSayac: Integer;
+sulamaTimer: TClTimer;
+
+
+void actionwater;
+{
+  waterimg.Margins.Top=waterimg.Margins.Top+direction;
+  
+  if (waterimg.Margins.Top >=180) {
+    direction=-1;
+    bouncecount=bouncecount+1;
+  }
+  if (waterimg.Margins.Top <=150 ) {
+    direction=1;
+    bouncecount=bouncecount+1;
+  }
+  if (bouncecount >= 4) {
+    actiontimer.Enabled = False;
+    bouncecount = 0;
+  }
+}
+
+void downwater;
+{
+  direction = -1;
+  actiontimer.Enabled = True;
+  downtimer.Enabled = False;
+  canwater = True; 
+}
+
+
+void watering;
+{
+  if (canwater==False) 
+  {
+    ShowMessage('Bitki zaten sulandı, lütfen biraz bekleyin');
+  }
+
+  direction = 1;
+  bouncecount=0;
+  actiontimer.Enabled = True;
+  ShowMessage('Bitki Sulandı!');
+  watersound.CurrentTime = 0;
+  watersound.Play;
+  canwater = False; 
+  downtimer.Enabled = True; 
+  sulamaSayac = 5; 
+  lblSayac.Text = IntToStr(sulamaSayac);
+  lblSayac.Visible = True;
+  sulamaTimer.Enabled = True;
+
+  
+  wateringcount = wateringcount + 1;
+  try
+  {
+    Clomosy.DBSQLiteQuery.SQL.Text = 
+      'UPDATE bitki SET sulama = ' + IntToStr(wateringcount) + ' WHERE id = 1';
+    Clomosy.DBSQLiteQuery.OpenOrExecute;
+  }
+  except
+    ShowMessage('Exception class: ' + LastExceptionClassName + ' Exception Message: ' + LastExceptionMessage);
+  }
+  if (wateringcount == 1) {
+  
+    plantimg.Height = 200;
+    plantimg.Width = 225;
+    plantimg.Margins.Top = 0;
+    plantimg.Margins.Bottom =200;
+    plantimg.clProSettings.PictureSource = 'https://raw.githubusercontent.com/sudesgrc/assets/refs/heads/main/kucukbitki.png'; //filizlenme
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront; //Butonu tekrar öne getir
+  } else if (wateringcount == 2) {
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/cCPZQKi.png'; //çiçek açmış hali
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront; // Butonu tekrar öne getir
+  } else if(wateringcount==3) {
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/TV3flTB.png'; //olgunlaşmış bitki
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront; // Butonu tekrar öne getir
+  }else if(wateringcount==4){
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/kPjfNHy.png'; //ölü bitki
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront;
+    
+  }//TÜR 2'ye GEÇİYOR
+  
+    else if(wateringcount==5){
+     plantimg.Height = 200;
+    plantimg.Width = 225;
+    plantimg.Margins.Top = 0;
+    plantimg.Margins.Bottom =200;
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/Gyg8jI5.png'; //tohum bitki
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront;
+  }
+  else if (wateringcount == 6) {
+    plantimg.Height = 200;
+    plantimg.Width = 225;
+    plantimg.Margins.Top = 0;
+    plantimg.Margins.Bottom =200;
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/Eh8vLVU.png'; //filizlenme
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront; //Butonu tekrar öne getir
+  } else if (wateringcount == 7) {
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/F8INY62.png'; //çiçek açmış hali
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront; // Butonu tekrar öne getir
+  } else if(wateringcount==8) {
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/CfLQdcO.png'; //olgunlaşmış bitki
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront; // Butonu tekrar öne getir
+  }else if(wateringcount==9){
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/WKZCpoD.png'; //ölü bitki
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront;
+    
+  }//TÜR 3 'e geçiliyor'
+      else if(wateringcount==10){
+     plantimg.Height = 200;
+    plantimg.Width = 225;
+    plantimg.Margins.Top = 0;
+    plantimg.Margins.Bottom =200;
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/rqA7bOe.png'; //tohum bitki
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront;
+  }
+  else if (wateringcount == 11) {
+  
+    plantimg.Height = 200;
+    plantimg.Width = 225;
+    plantimg.Margins.Top = 0;
+    plantimg.Margins.Bottom =200;
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/iCSrOPG.png'; //filizlenme
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront; //Butonu tekrar öne getir
+  } else if (wateringcount == 12) {
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/WkY70dT.png'; //çiçek açmış hali
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront; // Butonu tekrar öne getir
+  } else if(wateringcount==13) {
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/wCoQvdX.png'; //olgunlaşmış bitki
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront; // Butonu tekrar öne getir
+  }else if(wateringcount==14){
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/2ariu7b.png'; //ölü bitki
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront;
+    
+  }//TÜR 4 'e geçiliyor'
+      else if(wateringcount==15){
+     plantimg.Height = 200;
+    plantimg.Width = 225;
+    plantimg.Margins.Top = 0;
+    plantimg.Margins.Bottom =200;
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/68nE5ye.png'; //tohum bitki
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront;
+  }
+  else if (wateringcount == 16) {
+    plantimg.Height = 200;
+    plantimg.Width = 225;
+    plantimg.Margins.Top = 0;
+    plantimg.Margins.Bottom =200;
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/vEzy8Tp.png'; //filizlenme
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront; //Butonu tekrar öne getir
+  } else if (wateringcount == 17) {
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/ZlSxaqe.png'; //çiçek açmış hali
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront; // Butonu tekrar öne getir
+  } else if(wateringcount==18) {
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/vnqYtrs.png'; //olgunlaşmış bitki
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront; // Butonu tekrar öne getir
+  }else if(wateringcount==19){
+    plantimg.clProSettings.PictureSource = 'https://i.imgur.com/7lc25Kn.png'; //ölü bitki
+    plantimg.clProSettings.PictureAutoFit = True;
+    plantimg.SetclProSettings(plantimg.clProSettings);
+    plantimg.BringToFront;
+    waterbtn.BringToFront;
+    ShowMessage('Tebrikler tüm türlerin sonuna geldiniz!');
+    
+  }
+  
+}
+
+
+void SulamaSayacGuncelle;
+{
+  sulamaSayac = sulamaSayac - 1;
+  lblSayac.Text = IntToStr(sulamaSayac);
+
+  if (sulamaSayac <= 0) {
+    lblSayac.Visible = False;
+    sulamaTimer.Enabled = False;
+  }
+}
+
+ 
+{
+
+
+  wateringform = TclStyleForm.Create(self);
+  wateringform.SetFormBGImage('https://i.imgur.com/918OxTa.png');
+  canwater=True;
+  wateringcount = 0; 
+  
+  
+  
+  wateringform.AddAssetFromUrl('https://raw.githubusercontent.com/sudesgrc/assets/main/sulamasesi.wav');
+
+  lblwateringtitle = wateringform.AddNewProLabel(wateringform, 'lblwateringtitle', 'SULAMA');
+  lblwateringtitle.Align = alTop;
+  lblwateringtitle.Margins.Top = 20;
+  lblwateringtitle.Height = 40;
+  lblwateringtitle.Width = 300;
+  lblwateringtitle.clProSettings.FontSize = 26;
+  lblwateringtitle.clProSettings.TextSettings.FontColor = clAlphaColor.clHexToColor('#2e6417');
+  lblwateringtitle.clProSettings.FontColor=clAlphaColor.clHexToColor('#2e6417');
+  lblwateringtitle.clProSettings.FontVertAlign = palCenter;
+  lblwateringtitle.clProSettings.FontHorzAlign = palCenter;
+  lblwateringtitle.clProSettings.TextSettings.Font.Style = [fsBold];
+  lblwateringtitle.SetclProSettings(lblwateringtitle.clProSettings);
+
+  waterimg = wateringform.AddNewProImage(wateringform, 'waterimg');
+  waterimg.Align = alTop;
+  waterimg.Margins.Top = 150;
+  waterimg.Margins.Left = 20;
+  waterimg.Margins.Right = 100;
+  waterimg.Height = 90;
+  waterimg.Width = 90;
+  waterimg.clProSettings.PictureSource = 'https://i.imgur.com/uZQCAk5.png';
+  waterimg.clProSettings.PictureAutoFit = True;
+  waterimg.SetclProSettings(waterimg.clProSettings); 
+  waterimg.SendToBack;
+
+  plantimg = wateringform.AddNewProImage(wateringform, 'plantimg');
+  plantimg.Align = alCenter; 
+  plantimg.Margins.Bottom = 100;
+  plantimg.Margins.Left = 30;
+  plantimg.Margins.Right = 30;
+  plantimg.Height = 800;           
+  plantimg.Width = 1000;            
+  plantimg.clProSettings.PictureSource = 'https://i.imgur.com/L0f54ex.png';
+  plantimg.clProSettings.PictureAutoFit = True;
+  plantimg.SetclProSettings(plantimg.clProSettings);
+  plantimg.BringToFront;
+
+  waterbtn = wateringform.AddNewProButton(wateringform, 'waterbtn', 'SULA');
+  waterbtn.clProSettings.TextSettings.FontColor = clAlphaColor.clHexToColor('#bef28a');
+  waterbtn.clProSettings.BackgroundColor = clAlphaColor.clHexToColor('#2e6417');
+  waterbtn.clProSettings.FontSize = 18;
+  waterbtn.clProSettings.RoundHeight = 20;
+  waterbtn.clProSettings.RoundWidth = 20;
+  waterbtn.Height = 40;
+  waterbtn.Width = 150;
+  waterbtn.Margins.Top = 100;    
+  waterbtn.SetclProSettings(waterbtn.clProSettings);
+  waterbtn.BringToFront;
+  
+  lblSayac = wateringform.AddNewProLabel(wateringform, 'lblSayac', '');
+  lblSayac.Align = alTop;
+  lblSayac.Height = 30;
+  lblSayac.Width = 50;
+  lblSayac.Margins.Bottom =1000;
+  lblSayac.clProSettings.FontSize =30;
+  lblSayac.clProSettings.TextSettings.FontColor = clAlphaColor.clHexToColor('#ffffff');
+  lblSayac.clProSettings.FontHorzAlign = palCenter;
+  lblSayac.clProSettings.FontVertAlign = palCenter;
+  lblSayac.Visible = False;
+  lblSayac.SetclProSettings(lblSayac.clProSettings);
+  
+  sulamaTimer = wateringform.AddNewTimer(wateringform, 'sulamaTimer', 1000); 
+  wateringform.AddNewEvent(sulamaTimer, tbeOnTimer, 'SulamaSayacGuncelle');
+  sulamaTimer.Enabled = False;
+
+
+  
+  watersound = TclMediaPlayer.Create(wateringform);
+  watersound.FileName = clPathCombine('sulamasesi.wav', Clomosy.AppFilesPath);
+  watersound.Volume = 1;
+  
+  wateringform.AddNewEvent(waterbtn,tbeOnClick,'watering');
+  actiontimer = wateringform.AddNewTimer(wateringform,'actiontimer', 30);
+  wateringform.AddNewEvent(actiontimer, tbeOnTimer, 'actionwater');
+  
+  downtimer = wateringform.AddNewTimer(wateringform,'downtimer', 5000); 
+  wateringform.AddNewEvent(downtimer, tbeOnTimer, 'downwater');
+  
+  wateringform.Run;
+}

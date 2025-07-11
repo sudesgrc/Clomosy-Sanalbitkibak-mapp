@@ -1,0 +1,53 @@
+var
+  type2form:TclStyleForm;
+  bitkiImg:TClProImage;
+  bitkititle:TCLProLabel;
+  tulippanel:TclProPanel;
+  tuliplbl:TCLProLabel;
+
+{
+  type2form = TclStyleForm.Create(Self);
+  type2form.SetFormBGImage('https://i.imgur.com/LRNbts5.png');
+  
+     bitkititle = type2form.AddNewProLabel(type2form, 'bitkititle', 'TULIP');
+     bitkititle.Align = alTop;
+     bitkititle.Margins.Top = 20;
+     bitkititle.Margins.Left = 20;
+     bitkititle.Margins.Right = 20;
+     bitkititle.clProSettings.FontColor = clAlphaColor.clHexToColor('#b0f5f7');
+     bitkititle.clProSettings.FontSize = 24;
+     bitkititle.clProSettings.AutoSize = True;
+     bitkititle.clProSettings.FontVertAlign = palcenter;
+     bitkititle.clProSettings.FontHorzAlign = palCenter;
+     bitkititle.clProSettings.TextSettings.Font.Style = [fsbold, fsUnderline];
+     bitkititle.clProSettings.IsFill = True; 
+     bitkititle.clProSettings.IsRound = True;
+     bitkititle.Height = 50;
+     bitkititle.Width = 300;
+     bitkititle.SetclProSettings(bitkititle.clProSettings);
+     
+     
+  tulippanel = type2form.AddNewProPanel(type2form, 'tulippanel');
+  tulippanel.Height = 250;
+  tulippanel.Width = 300;
+  tulippanel.Margins.Top = 30;
+  tulippanel.Margins.Bottom=30;
+  tulippanel.Margins.Left = 20;
+  tulippanel.clProSettings.BackgroundColor =clAlphaColor.clHexToColor('#ffc0cb');
+  tulippanel.SetclProSettings(tulippanel.clProSettings);
+
+ 
+   tuliplbl = type2form.AddNewProLabel(tulippanel, 'tuliplbl', 
+    ' Laleler toprağa soğanla dikilir.' +
+    ' Mart-Nisan ayları arası en canlı dönemidir.' +
+    ' Bol ışık alan yerlerde daha güzel açar.'+
+    ' Fazla suyu sevmez, kökleri çürüyebilir.'+
+    ' Kırmızı, sarı, pembe, mor, beyaz gibi birçok renkte bulunur.'+
+    ' Hollanda ile özdeşleşmiştir. Ama anavatanı Orta Asya ve Anadolu’dur.');
+  tuliplbl.Align = alClient;
+  tuliplbl.clProSettings.FontSize = 16;
+  tuliplbl.clProSettings.FontColor = clAlphaColor.clHexToColor('#000000'); 
+  tuliplbl.clProSettings.WordWrap = True;
+  tuliplbl.SetclProSettings(tuliplbl.clProSettings);
+  type2form.Run;
+}

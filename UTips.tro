@@ -1,0 +1,82 @@
+var
+  tipsform: TclStyleForm;
+  pnltips1, pnltips2, pnltips3, pnltips4: TCLProPanel;
+  lbltips1, lbltips2, lbltips3, lbltips4: TClProLabel;
+
+{
+  tipsform = TclStyleForm.Create(Self);
+  tipsform.SetFormBGImage('https://i.imgur.com/DbIqSno.png');
+
+  // 🌼 Panel 1
+  pnltips1 = tipsform.AddNewProPanel(tipsform, 'pnltips1');
+  pnltips1.Align = alTop;
+  pnltips1.Height = 100;
+  pnltips1.Margins.Top = 40;
+  pnltips1.Margins.Left = 30;
+  pnltips1.Margins.Right = 30;
+  pnltips1.clProSettings.BackgroundColor = clAlphaColor.clHexToColor('#ffc0cb');
+  pnltips1.SetclProSettings(pnltips1.clProSettings);
+
+  lbltips1 = tipsform.AddNewProLabel(pnltips1, 'lbltips1',
+    'İPUCU 1: Toprağı kontrol et, eğer kuruysa bitkini nazikçe sulamalısın. Fazla su da zararlıdır.');
+  lbltips1.Align = alClient;
+  lbltips1.clProSettings.FontSize = 14;
+  lbltips1.clProSettings.FontColor = clAlphaColor.clHexToColor('#000000');
+  lbltips1.clProSettings.WordWrap = True;
+  lbltips1.SetclProSettings(lbltips1.clProSettings);
+
+  // 🌼 Panel 2
+  pnltips2 = tipsform.AddNewProPanel(tipsform, 'pnltips2');
+  pnltips2.Align = alTop;
+  pnltips2.Height = 100;
+  pnltips2.Margins.Top = 30;
+  pnltips2.Margins.Left = 30;
+  pnltips2.Margins.Right = 30;
+  pnltips2.clProSettings.BackgroundColor = clAlphaColor.clHexToColor('#ffc0cb');
+  pnltips2.SetclProSettings(pnltips2.clProSettings);
+
+  lbltips2 = tipsform.AddNewProLabel(pnltips2, 'lbltips2',
+    'İPUCU 2: Sabah güneşi bitkilerin gelişimi için en ideal ışıktır.');
+  lbltips2.Align = alClient;
+  lbltips2.clProSettings.FontSize = 14;
+  lbltips2.clProSettings.FontColor = clAlphaColor.clHexToColor('#000000');
+  lbltips2.clProSettings.WordWrap = True;
+  lbltips2.SetclProSettings(lbltips2.clProSettings);
+  // 🌼 Panel 3
+  pnltips3 = tipsform.AddNewProPanel(tipsform, 'pnltips3');
+  pnltips3.Align = alTop;
+  pnltips3.Height = 100;
+  pnltips3.Margins.Top = 30;
+  pnltips3.Margins.Left = 30;
+  pnltips3.Margins.Right = 30;
+  pnltips3.clProSettings.BackgroundColor = clAlphaColor.clHexToColor('#ffc0cb');
+ pnltips3.SetclProSettings(pnltips3.clProSettings);
+ 
+  lbltips3 = tipsform.AddNewProLabel(pnltips3, 'lbltips3',
+    'İPUCU 3: Ayda bir kez organik gübre kullanarak kök gelişimini destekle.');
+  lbltips3.Align = alClient;
+  lbltips3.clProSettings.FontSize = 14;
+  lbltips3.clProSettings.FontColor = clAlphaColor.clHexToColor('#000000');
+  lbltips3.clProSettings.WordWrap = True;
+  lbltips3.SetclProSettings(lbltips3.clProSettings);
+
+  // 🌼 Panel 4
+  pnltips4 = tipsform.AddNewProPanel(tipsform, 'pnltips4');
+  pnltips4.Align = alTop;
+  pnltips4.Height = 100;
+  pnltips4.Margins.Top = 30;
+  pnltips4.Margins.Left = 30;
+  pnltips4.Margins.Right = 30;
+  pnltips4.clProSettings.BackgroundColor = clAlphaColor.clHexToColor('#ffc0cb');
+  pnltips4.SetclProSettings(pnltips4.clProSettings);
+
+  lbltips4 = tipsform.AddNewProLabel(pnltips4, 'lbltips4',
+    'İPUCU 4: Yaprakları haftada bir kontrol et, hastalık belirtilerini erkenden fark edebilirsin.');
+  lbltips4.Align = alClient;
+  lbltips4.clProSettings.FontSize = 14;
+  lbltips4.clProSettings.FontColor = clAlphaColor.clHexToColor('#000000');
+  lbltips4.clProSettings.WordWrap = True;
+  lbltips4.SetclProSettings(lbltips4.clProSettings);
+
+  tipsform.Run;
+}

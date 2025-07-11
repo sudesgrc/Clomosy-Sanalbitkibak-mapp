@@ -1,0 +1,167 @@
+var
+  AnaForm: TclForm;
+  SoruGirdi: TclProEdit;
+  GonderButon: TClProButton;
+  SohbetPaneli, GirdiPaneli: TclProPanel;
+  MesajListesi: TclMemo;
+  AnaYerlesim: TClLayout;
+  BaslikEtiketi: TclLabel;
+  Istek: TclRest;
+  API_ANAHTARI, IstekGovdesi, GelenCevap: string;
+  SesEfekti: TclMediaPlayer;
+  Son5Mesaj: array[0..4] of string;
+  MesajSayaci: Integer;
+
+void IstekTamamlandi;
+{
+  GelenCevap = Clomosy.CLParseJSON(Istek.Response, 'candidates.0.content.parts.0.text');
+
+  MesajListesi.Lines.Add('Bitki Asistanı: ' + GelenCevap);
+  MesajListesi.ScrollTo(0, MesajListesi.Lines.Count * MesajListesi.TextSettings.Font.Size, True);
+   
+}
+
+void IstekOlustur(TemelURL, Govde: string);
+{
+  Istek = TclRest.Create;
+  Istek.Accept = 'application/json';
+  Istek.ContentType = 'application/json';
+  Istek.Method = rmPOST;
+  Istek.ConnectTimeOut = 30000;
+  Istek.BaseURL = TemelURL;
+  Istek.Body = Govde;
+  Istek.OnCompleted = 'IstekTamamlandi';
+  Istek.ExecuteAsync;
+}
+
+void GonderButonTiklandi;
+var
+  i, indeks: Integer;
+  TamGirdi: String;
+{
+  if SoruGirdi.Text <> '' {
+    MesajListesi.Lines.Add('Sen: ' + SoruGirdi.Text);
+    MesajListesi.ScrollTo(0, MesajListesi.Lines.Count * MesajListesi.TextSettings.Font.Size, True);
+
+    indeks = MesajSayaci - ((MesajSayaci div 5) * 5);
+    Son5Mesaj[indeks] = SoruGirdi.Text;
+    Inc(MesajSayaci);
+
+    TamGirdi = '';
+    for (i = 0 to 4) {
+  if Son5Mesaj[i] <> '' {
+    TamGirdi = TamGirdi + '{"text": "' + Son5Mesaj[i] + '"},';
+  }
+}
+
+
+    IstekGovdesi = '{
+      "contents": [
+        {
+          "parts": [
+            ' + TamGirdi +
+            '{"text": "' + SoruGirdi.Text + '"}
+          ]
+        }
+      ]
+    }';
+
+    API_ANAHTARI = 'apıkey';
+    IstekOlustur(
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + API_ANAHTARI,
+      IstekGovdesi
+    );
+
+    SoruGirdi.Text = '';
+  }
+}
+
+void GirdiPaneliniAyarla;
+{
+  GirdiPaneli = AnaForm.AddNewProPanel(AnaYerlesim, 'GirdiPaneli');
+  GirdiPaneli.Align = AlBottom;
+  GirdiPaneli.Height = 100;
+  GirdiPaneli.Margins.Top = 5;
+  GirdiPaneli.Margins.Bottom = 20;
+  GirdiPaneli.Margins.Left = 10;
+  GirdiPaneli.Margins.Right = 10;
+
+  SoruGirdi = AnaForm.AddNewProEdit(GirdiPaneli, 'SoruGirdi', 'Bir soru sor...');
+  SoruGirdi.Align = AlClient;
+  SoruGirdi.Margins.Left = 10;
+  SoruGirdi.Margins.Right = 10;
+  SoruGirdi.Margins.Top = 10;
+  SoruGirdi.Margins.Bottom = 10;
+  SoruGirdi.clProSettings.BorderColor = clAlphaColor.clHexToColor('#3bf5c0');
+  SoruGirdi.clProSettings.IsRound = True;
+  SoruGirdi.clProSettings.RoundHeight = 10;
+  SoruGirdi.clProSettings.RoundWidth = 10;
+  SoruGirdi.SetclProSettings(SoruGirdi.clProSettings);
+
+  GonderButon = AnaForm.AddNewProButton(GirdiPaneli, 'GonderButon', 'Gönder');
+  GonderButon.Align = AlRight;
+  GonderButon.Width = GirdiPaneli.Width / 4;
+  GonderButon.Margins.Bottom = 10;
+  GonderButon.Margins.Top = 10;
+  GonderButon.Margins.Right = 10;
+  GonderButon.clProSettings.BackgroundColor = clAlphaColor.clHexToColor('#14f37c');
+  GonderButon.clProSettings.FontColor = clAlphaColor.clHexToColor('#ffffff');
+  GonderButon.clProSettings.IsRound = True;
+  GonderButon.clProSettings.RoundHeight = 10;
+  GonderButon.clProSettings.RoundWidth = 10;
+  GonderButon.SetclProSettings(GonderButon.clProSettings);
+
+  AnaForm.AddNewEvent(GonderButon, tbeOnClick, 'GonderButonTiklandi');
+}
+
+void SohbetPaneliniAyarla;
+{
+  SohbetPaneli = AnaForm.AddNewProPanel(AnaYerlesim, 'SohbetPaneli');
+  SohbetPaneli.Align = AlClient;
+  SohbetPaneli.Margins.Right = 10;
+  SohbetPaneli.Margins.Left = 10;
+  SohbetPaneli.clProSettings.BackgroundColor = clAlphaColor.clHexToColor('#14f37c');
+  SohbetPaneli.SetclProSettings(SohbetPaneli.clProSettings);
+ 
+  MesajListesi = AnaForm.AddNewMemo(SohbetPaneli, 'MesajListesi', '');
+  MesajListesi.Align = alClient;
+  MesajListesi.ReadOnly = True;
+  MesajListesi.Margins.Top = 20;
+  MesajListesi.Margins.Left = 20;
+  MesajListesi.Margins.Bottom = 20;
+  MesajListesi.Margins.Right = 20;
+  MesajListesi.TextSettings.Font.Size = 18;
+  MesajListesi.TextSettings.WordWrap = True;
+  MesajListesi.EnabledScroll = True;
+}
+
+void BasligiAyarla;
+{
+  BaslikEtiketi = AnaForm.AddNewLabel(AnaForm.LytTopBar, 'BaslikEtiketi', 'Bitki Asistanı (Yapay Zeka)');
+  BaslikEtiketi.TextSettings.Font.Size = 20;
+  BaslikEtiketi.Align = alLeft;
+  BaslikEtiketi.Margins.Left = 14;
+  BaslikEtiketi.Margins.Top = 10;
+  BaslikEtiketi.Height = 65;
+  BaslikEtiketi.Width = 259;
+}
+
+{
+  MesajSayaci = 0;
+  AnaForm = TclForm.Create(Self);
+  AnaForm.BtnFormMenu.Visible = False;
+  AnaForm.FormWaiting.Visible = False;
+
+  BasligiAyarla;
+
+  AnaYerlesim = AnaForm.AddNewLayout(AnaForm, 'AnaYerlesim');
+  AnaYerlesim.Align = alClient;
+  AnaYerlesim.Margins.Bottom = 10;
+  AnaYerlesim.Margins.Top = 10;
+
+  SohbetPaneliniAyarla;
+  GirdiPaneliniAyarla;
+
+ 
+  AnaForm.Run;
+}

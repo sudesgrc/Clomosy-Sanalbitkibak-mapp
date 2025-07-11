@@ -1,0 +1,177 @@
+var
+  Loginform: TclStyleForm;
+  LoginTitle, LoginSave: TCLProLabel;
+  User, Password: TCLProEdit;
+  LoginButton: TClProButton;
+  UnitRegister,UnitBitki: TclUnit;
+  BgImage:TclProImage;
+
+void CreateTable;
+{
+  try
+  {
+    Clomosy.DBSQLiteConnect(Clomosy.AppFilesPath + 'ClomosyBitki.db3', '');
+
+    // Kullanıcı tablosu
+    Clomosy.DBSQLiteQuery.SQL.Text = 
+      'CREATE TABLE IF NOT EXISTS users (' +
+      'username TEXT,' +
+      'userpassword INTEGER NOT NULL' + 
+      ')';
+    Clomosy.DBSQLiteQuery.OpenOrExecute();
+
+    // Sulama tablosu
+    Clomosy.DBSQLiteQuery.SQL.Text =
+      'CREATE TABLE IF NOT EXISTS bitki (' +
+      'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
+      'sulama INTEGER)';
+    Clomosy.DBSQLiteQuery.OpenOrExecute();
+  }
+  except
+    ShowMessage('Exception class: ' + LastExceptionClassName + ' Exception Message: ' + LastExceptionMessage);
+  }
+
+}
+
+
+
+void GoToRegister
+{
+  UnitRegister.UnitName = 'URegister';
+  UnitRegister.CallerForm = Loginform;
+  UnitRegister.Run;
+}
+
+void InsertTable;
+{
+  try
+    Clomosy.DBSQLiteQuery.SQL.Text =
+      'INSERT INTO users (username, userpassword) VALUES (' +
+      QuotedStr(User.Text) + ',' + QuotedStr(Password.Text) + ')';
+
+    Clomosy.DBSQLiteQuery.OpenOrExecute;
+    ShowMessage('Kayıt Basarili.');
+  except
+    ShowMessage('Kayıt sırasında hata oluştu: ' + LastExceptionMessage);
+}
+
+}
+
+void SignIn;
+{
+  try
+    Clomosy.DBSQLiteQuery.SQL.Text =
+      'SELECT COUNT(*) AS number FROM users WHERE username = ' +
+      QuotedStr(User.Text) + ' AND userpassword = ' + QuotedStr(Password.Text);
+
+    Clomosy.DBSQLiteQuery.OpenOrExecute;
+    
+    if (Clomosy.DBSQLiteQuery.FieldByName('number').AsString == '1') {
+      ShowMessage('Giriş Başarılı 🤩');
+      UnitBitki = TclUnit.Create;
+      UnitBitki.UnitName = 'UPlant';
+      UnitBitki.CallerForm = Loginform;
+      UnitBitki.Run;
+
+    } else {
+      ShowMessage('Giriş Başarısız. Kullanıcı Adı veya Şifre Hatalı 😣');
+    }
+  except
+    ShowMessage('Hata oluştu: ' + LastExceptionMessage);
+}
+
+}
+
+{
+  Loginform = TclStyleForm.Create(self);
+  Loginform.SetFormBGImage('https://i.pinimg.com/736x/e9/39/c4/e939c40095284ec5e6c511b22a543c2c.jpg');
+
+
+  
+  LoginTitle = Loginform.AddNewProLabel(Loginform, 'LoginTitle', '🌿SANAL BAHÇEM🌿');
+  LoginTitle.Align = alTop;
+  LoginTitle.Margins.Top = 20;
+  LoginTitle.Margins.Left = 20;
+  LoginTitle.Margins.Right = 20;
+  LoginTitle.clProSettings.FontColor = clAlphaColor.clHexToColor('#ffffff');
+  LoginTitle.clProSettings.FontSize = 24;
+  LoginTitle.clProSettings.AutoSize = True;
+  LoginTitle.clProSettings.FontVertAlign = palcenter;
+  LoginTitle.clProSettings.FontHorzAlign = palCenter;
+  LoginTitle.clProSettings.TextSettings.Font.Style = [fsbold, fsUnderline];
+  LoginTitle.clProSettings.IsFill = True; 
+  LoginTitle.clProSettings.IsRound = True;
+  LoginTitle.Height = 50;
+  LoginTitle.Width = 300;
+  LoginTitle.SetclProSettings(LoginTitle.clProSettings);
+
+ 
+  User = Loginform.AddNewProEdit(Loginform, 'User', 'Kullanıcı Adı');
+  User.Align = alTop;
+  User.Margins.Top = 100;
+  User.Margins.Right = 30;
+  User.Margins.Left = 30;
+  User.clProSettings.BackgroundColor = clAlphaColor.clHexToColor('#ffffff');
+  User.clProSettings.RoundHeight = 8;
+  User.clProSettings.RoundWidth = 8;
+  User.TextSettings.Font.Size = 14;
+  User.TextSettings.FontColor = clAlphaColor.clHexToColor('#000000');
+  User.Height = 45;
+  User.Width = 300;
+  User.SetclProSettings(User.clProSettings);
+
+  Password = Loginform.AddNewProEdit(Loginform, 'Password', 'Şifre');
+  Password.Align = alTop;
+  Password.Margins.Top = 80;
+  Password.Margins.Right = 30;
+  Password.Margins.Left = 30;
+  Password.clProSettings.BackgroundColor = clAlphaColor.clHexToColor('#ffffff');
+  Password.Password = True;
+  Password.clProSettings.RoundHeight = 8;
+  Password.clProSettings.RoundWidth = 8;
+  Password.TextSettings.Font.Size = 14;
+  Password.TextSettings.FontColor = clAlphaColor.clHexToColor('#000000');
+  Password.Height = 45;
+  Password.Width = 300;
+  Password.SetclProSettings(Password.clProSettings);
+
+  
+  LoginSave = Loginform.AddNewProLabel(Loginform, 'LoginSave', 'Hesabın yok mu? KAYIT OL');
+  LoginSave.Align = alBottom;
+  LoginSave.Margins.Bottom = 20;
+  LoginSave.clProSettings.TextSettings.Font.Size = 16;
+  LoginSave.clProSettings.FontColor = clAlphaColor.clHexToColor('#f5f3f2');
+  LoginSave.clProSettings.TextSettings.Font.Style=[fsbold,fsitalic];
+  LoginSave.Height = 40;
+  LoginSave.Width = 250;
+  LoginSave.clProSettings.RoundHeight = 8;
+  LoginSave.clProSettings.RoundWidth = 8;
+  LoginSave.clProSettings.IsFill = True;
+  LoginSave.clProSettings.FontVertAlign = palcenter;
+  LoginSave.clProSettings.FontHorzAlign = palCenter;
+  LoginSave.SetclProSettings(LoginSave.clProSettings);
+
+ 
+  LoginButton = Loginform.AddNewProButton(Loginform, 'LoginButton', 'GİRİŞ YAP');
+  LoginButton.Align = alTop;
+  LoginButton.Margins.Top = 100;
+  LoginButton.Margins.Left = 60;
+  LoginButton.Margins.Right = 60;
+  LoginButton.clProSettings.BackgroundColor = clAlphaColor.clHexToColor('#f7eeed');
+  LoginButton.clProSettings.TextSettings.Font.Size = 18;
+  LoginButton.clProSettings.TextSettings.FontColor = clAlphaColor.clHexToColor('#457a00');
+  LoginButton.Height = 50;
+  LoginButton.Width =200;
+  LoginButton.clProSettings.RoundHeight = 8;
+  LoginButton.clProSettings.RoundWidth = 8;
+  LoginButton.clProSettings.IsFill = True;
+  LoginButton.clProSettings.FontVertAlign = palcenter;
+  LoginButton.clProSettings.FontHorzAlign = palCenter;
+  LoginButton.SetclProSettings(LoginButton.clProSettings);
+  Loginform.AddNewEvent(LoginButton, tbeOnClick, 'SignIn');
+  UnitRegister = TclUnit.Create;
+  Loginform.AddNewEvent(LoginSave, tbeOnClick, 'GoToRegister');
+  CreateTable;
+  Loginform.Run;
+}
+

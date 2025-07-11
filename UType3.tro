@@ -1,0 +1,53 @@
+var
+  type3form:TclStyleForm;
+  bitkiImg:TClProImage;
+  bitkititle:TCLProLabel;
+  sunflowerpanel:TclProPanel;
+  lblsunflower:TCLProLabel;
+
+{
+  type3form = TclStyleForm.Create(Self);
+  type3form.SetFormBGImage('https://i.imgur.com/uackwZW.jpeg');
+  
+     bitkititle = type3form.AddNewProLabel(type3form, 'bitkititle', 'SUNFLOWER');
+     bitkititle.Align = alTop;
+     bitkititle.Margins.Top = 20;
+     bitkititle.Margins.Left = 20;
+     bitkititle.Margins.Right = 20;
+     bitkititle.clProSettings.FontColor = clAlphaColor.clHexToColor('#b0f5f7');
+     bitkititle.clProSettings.FontSize = 24;
+     bitkititle.clProSettings.AutoSize = True;
+     bitkititle.clProSettings.FontVertAlign = palcenter;
+     bitkititle.clProSettings.FontHorzAlign = palCenter;
+     bitkititle.clProSettings.TextSettings.Font.Style = [fsbold, fsUnderline];
+     bitkititle.clProSettings.IsFill = True; 
+     bitkititle.clProSettings.IsRound = True;
+     bitkititle.Height = 50;
+     bitkititle.Width = 300;
+     bitkititle.SetclProSettings(bitkititle.clProSettings);
+     
+     
+ sunflowerpanel = type3form.AddNewProPanel(type3form, 'sunflowerpanel');
+ sunflowerpanel.Height = 250;
+sunflowerpanel.Width = 300;
+sunflowerpanel.Margins.Top = 30;
+  sunflowerpanel.Margins.Bottom=30;
+  sunflowerpanel.Margins.Left = 20;
+  sunflowerpanel.clProSettings.BackgroundColor =clAlphaColor.clHexToColor('#f5ef42');
+  sunflowerpanel.SetclProSettings(sunflowerpanel.clProSettings);
+
+ 
+  lblsunflower = type3form.AddNewProLabel(sunflowerpanel, 'lblsunflower', 
+    ' Ayçiçekeleri başını sürekli güneşe çevirir, bu yüzden “günebakan” denir.' +
+    ' Genelde 1–3 metreye kadar uzayabilir.'+
+    ' Hem süs hem de yağ üretimi için kullanılır.'+
+    ' Tohumları kuşlar için harika bir besindir.'+
+    ' Geniş kök yapısıyla erozyonu önleyebilir.'+
+    ' Özellikle büyüme döneminde düzenli sulama ister.');
+  lblsunflower.Align = alClient;
+  lblsunflower.clProSettings.FontSize = 16;
+  lblsunflower.clProSettings.FontColor = clAlphaColor.clHexToColor('#000000'); 
+  lblsunflower.clProSettings.WordWrap = True;
+  lblsunflower.SetclProSettings(lblsunflower.clProSettings);
+  type3form.Run;
+}

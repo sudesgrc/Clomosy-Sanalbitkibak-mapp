@@ -1,0 +1,182 @@
+var
+BitkimForm:TclStyleForm;
+wateringbtn,typebtn,caringbtn,tipsbtn,aibtn:TClProButton;
+lblTitle:TClProLabel;
+flowerImg:TClProImage;
+UnitWatering,Unittypes,UnitCaring,Unittips,Unitai:TclUnit;
+
+void gotowatering;
+{
+  UnitWatering.UnitName='UWatering';
+  UnitWatering.CallerForm=BitkimForm;
+  UnitWatering.Run;
+}
+
+void gotoplanttypes;
+{
+  Unittypes.UnitName='UPlantSpecies';
+  Unittypes.CallerForm=BitkimForm;
+  Unittypes.Run;
+}
+
+void gotocaring;
+{
+  UnitCaring.UnitName='UCaring';
+  UnitCaring.CallerForm=BitkimForm;
+  UnitCaring.Run;
+}
+
+void gototips;
+{
+  Unittips.UnitName='UTips';
+  Unittips.CallerForm=BitkimForm;
+  Unittips.Run;
+}
+
+void gotoai;
+{
+  Unitai.UnitName='UAi';
+  Unitai.CallerForm=BitkimForm;
+  Unitai.Run;
+}
+
+{
+  Unittypes=TclUnit.Create;
+  BitkimForm=TclStyleForm.Create(Self);
+  UnitWatering=TclUnit.Create;
+  UnitCaring=TclUnit.Create;
+  Unittips=TclUnit.Create;
+  Unitai=TclUnit.Create;
+  
+  BitkimForm.SetFormColor('#bef28a', ' ', clGNone);
+  
+  lblTitle = BitkimForm.AddNewProLabel(BitkimForm, 'lblTitle', 'BİTKİM');
+  lblTitle.Align = alTop;
+  lblTitle.clProSettings.TextSettings.Font.Size = 26; 
+  lblTitle.clProSettings.FontSize =26; 
+  lblTitle.clProSettings.TextSettings.Font.Style = [fsBold];
+  lblTitle.clProSettings.TextSettings.FontColor = clAlphaColor.clHexToColor('#2e6417');
+  lblTitle.clProSettings.FontColor = clAlphaColor.clHexToColor('#2e6417');
+  lblTitle.clProSettings.FontVertAlign = palcenter;
+  lblTitle.clProSettings.FontHorzAlign = palCenter;
+  lblTitle.Margins.Right = 20;
+  lblTitle.Margins.Left = 20;
+  lblTitle.Margins.Top = 30;
+  lblTitle.Height = 50;
+  lblTitle.Width = 300;
+  lblTitle.SetclProSettings(lblTitle.clProSettings);
+  
+flowerImg = BitkimForm.AddNewProImage(BitkimForm, 'flowerImg');
+flowerImg.Align = alTop;
+flowerImg.Margins.Top = 40;          
+flowerImg.Margins.Left = 30;         
+flowerImg.Margins.Right = 30;        
+flowerImg.Height = 150;              
+flowerImg.Width = 150;              
+flowerImg.clProSettings.PictureSource = 'https://i.imgur.com/d40pdYr.jpeg';
+flowerImg.clProSettings.PictureAutoFit = True;
+flowerImg.clProSettings.FontHorzAlign = palCenter; 
+flowerImg.SetclProSettings(flowerImg.clProSettings);
+
+
+  wateringbtn = BitkimForm.AddNewProButton(BitkimForm, 'wateringbtn', 'SULAMA');
+  wateringbtn.Align = alTop;
+  wateringbtn.clProSettings.BackGroundColor = clAlphaColor.clHexToColor('#2e6417');
+  wateringbtn.clProSettings.TextSettings.FontColor = clAlphaColor.clHexToColor('#bef28a');
+  wateringbtn.clProSettings.FontSize = 20;
+  wateringbtn.clProSettings.RoundHeight = 8;
+  wateringbtn.clProSettings.RoundWidth = 8;
+  wateringbtn.Margins.Top = 80;
+  wateringbtn.Height = 30;
+  wateringbtn.Width = 180;
+  wateringbtn.Margins.Left=60;
+  wateringbtn.Margins.Right=60;
+  wateringbtn.clProSettings.IsFill = True;
+  wateringbtn.clProSettings.FontHorzAlign = palCenter;
+  wateringbtn.clProSettings.FontVertAlign = palCenter;
+  wateringbtn.SetclProSettings(wateringbtn.clProSettings);
+  
+  
+   typebtn = BitkimForm.AddNewProButton(BitkimForm, 'typebtn', 'BİTKİ TÜRLERİ           >');
+   typebtn.Align = alTop;
+   typebtn.clProSettings.BackGroundColor = clAlphaColor.clHexToColor('#2e6417');
+   typebtn.clProSettings.TextSettings.FontColor = clAlphaColor.clHexToColor('#bef28a');
+   typebtn.clProSettings.FontSize = 20;
+   typebtn.clProSettings.RoundHeight = 8;
+   typebtn.clProSettings.RoundWidth = 8;
+   typebtn.Margins.Top = 20;
+   typebtn.Height = 30;
+   typebtn.Width = 180;
+   typebtn.Margins.Left=60;
+   typebtn.Margins.Right=60;
+   typebtn.clProSettings.IsFill = True;
+   typebtn.clProSettings.FontHorzAlign = palCenter;
+   typebtn.clProSettings.FontVertAlign = palCenter;
+   typebtn.SetclProSettings(wateringbtn.clProSettings);
+
+
+   caringbtn = BitkimForm.AddNewProButton(BitkimForm, 'caringbtn', 'BAKIM                       >');
+   caringbtn.Align = alTop;
+   caringbtn.clProSettings.BackGroundColor = clAlphaColor.clHexToColor('#2e6417');
+   caringbtn.clProSettings.TextSettings.FontColor = clAlphaColor.clHexToColor('#bef28a');
+   caringbtn.clProSettings.FontSize = 20;
+   caringbtn.clProSettings.RoundHeight = 8;
+   caringbtn.clProSettings.RoundWidth = 8;
+   caringbtn.Margins.Top = 20;
+   caringbtn.Height = 30;
+   caringbtn.Width = 180;
+   caringbtn.Margins.Left=60;
+   caringbtn.Margins.Right=60;
+   caringbtn.clProSettings.IsFill = True;
+   caringbtn.clProSettings.FontHorzAlign = palCenter;
+   caringbtn.clProSettings.FontVertAlign = palCenter;
+   caringbtn.SetclProSettings(caringbtn.clProSettings);
+   
+   
+   
+   tipsbtn = BitkimForm.AddNewProButton(BitkimForm, 'tipsbtn', 'IPUÇLARI                  >');
+   tipsbtn.Align = alTop;
+   tipsbtn.clProSettings.BackGroundColor = clAlphaColor.clHexToColor('#2e6417');
+   tipsbtn.clProSettings.TextSettings.FontColor = clAlphaColor.clHexToColor('#bef28a');
+   tipsbtn.clProSettings.FontSize = 20;
+   tipsbtn.clProSettings.RoundHeight = 8;
+   tipsbtn.clProSettings.RoundWidth = 8;
+   tipsbtn.Margins.Top = 20;
+   tipsbtn.Height = 30;
+   tipsbtn.Width = 180;
+   tipsbtn.Margins.Left=60;
+   tipsbtn.Margins.Right=60;
+   tipsbtn.clProSettings.IsFill = True;
+   tipsbtn.clProSettings.FontHorzAlign = palCenter;
+   tipsbtn.clProSettings.FontVertAlign = palCenter;
+   tipsbtn.SetclProSettings(tipsbtn.clProSettings);
+   
+   
+   aibtn = BitkimForm.AddNewProButton(BitkimForm, 'aibtn', 'AI BİTKİ                     >');
+   aibtn.Align = alTop;
+   aibtn.clProSettings.BackGroundColor = clAlphaColor.clHexToColor('#2e6417');
+   aibtn.clProSettings.TextSettings.FontColor = clAlphaColor.clHexToColor('#bef28a');
+   aibtn.clProSettings.FontSize = 20;
+   aibtn.clProSettings.RoundHeight = 8;
+   aibtn.clProSettings.RoundWidth = 8;
+   aibtn.Margins.Top = 20;
+   aibtn.Height = 30;
+   aibtn.Width = 180;
+   aibtn.Margins.Left=60;
+   aibtn.Margins.Right=60;
+   aibtn.clProSettings.IsFill = True;
+   aibtn.clProSettings.FontHorzAlign = palCenter;
+   aibtn.clProSettings.FontVertAlign = palCenter;
+   aibtn.SetclProSettings(aibtn.clProSettings);
+   
+   BitkimForm.AddNewEvent(wateringbtn,tbeOnClick,'gotowatering');
+   BitkimForm.AddNewEvent(typebtn,tbeOnClick,'gotoplanttypes');
+   BitkimForm.AddNewEvent(caringbtn,tbeOnClick,'gotocaring');
+   BitkimForm.AddNewEvent(tipsbtn,tbeOnClick,'gototips');
+   BitkimForm.AddNewEvent(aibtn,tbeOnClick,'gotoai');
+  
+  
+  BitkimForm.Run;
+  
+  
+}
